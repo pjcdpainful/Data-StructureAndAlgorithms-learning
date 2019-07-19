@@ -109,11 +109,26 @@ public class LinkedList<E> {
     }
 
     /**
-     * 中间节点
+     * 查找中间节点
+     * 方法：快慢节点法
      * @return
      */
     public Node intermediateNode () {
-        return null;
+        Node q = head.getNext();
+        Node p =head.getNext();
+        // q 一次推进一个节点
+        // p 一次推进两个节点
+        // 当p到链表的结尾时，q刚好到中间节点
+        Node intermediateNode = null;
+        while (q != null && p != null) {
+                q = q.getNext();
+                if (p.getNext() == null) {
+                    return intermediateNode;
+                }
+                p = p.getNext().getNext();
+            intermediateNode = q;
+        }
+        return intermediateNode;
     }
 
     public void printAll (Node node) {
@@ -163,14 +178,16 @@ public class LinkedList<E> {
 
     public static void main (String[] args) {
         LinkedList<String> linkedList = new LinkedList<String>(20);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             linkedList.add(String.valueOf(i));
         }
         linkedList.printAll(null);
         System.out.println("我是分割线--------------");
         Node<String> reversalNode = linkedList.reversal();
         linkedList.printAll(reversalNode);
-
+        System.out.println("我是分割线--------------");
+        Node node = linkedList.intermediateNode();
+        System.out.println(node.getIetm());
         System.out.println();
     }
 
