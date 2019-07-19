@@ -6,7 +6,7 @@ package com.learn.linkedlist;
 public class LinkedList<E> {
 
     /** 容量 */
-    private int count;
+    private int capacity;
 
     /** 头结点 */
     private Node head;
@@ -16,8 +16,8 @@ public class LinkedList<E> {
 
     private int size;
 
-    public LinkedList (int count) {
-        this.count = count;
+    public LinkedList (int capacity) {
+        this.capacity = capacity;
         // 哨兵节点
         head = tail = new Node(null);
     }
@@ -30,7 +30,7 @@ public class LinkedList<E> {
     public boolean add (E data) {
         // 不可以为空
         checkIsNull(data);
-        if (size == count) {
+        if (size == capacity) {
             throw new RuntimeException("链表已满!!!!!!!!!!!!!");
         }
         E oldData = find(data);
@@ -114,19 +114,19 @@ public class LinkedList<E> {
      * @return
      */
     public Node intermediateNode () {
-        Node q = head.getNext();
-        Node p =head.getNext();
+        Node qslow  = head.getNext();
+        Node pfast =head.getNext();
         // q 一次推进一个节点
         // p 一次推进两个节点
         // 当p到链表的结尾时，q刚好到中间节点
         Node intermediateNode = null;
-        while (q != null && p != null) {
-                q = q.getNext();
-                if (p.getNext() == null) {
+        while (qslow != null && pfast != null) {
+                qslow = qslow.getNext();
+                if (pfast.getNext() == null) {
                     return intermediateNode;
                 }
-                p = p.getNext().getNext();
-            intermediateNode = q;
+            pfast = pfast.getNext().getNext();
+            intermediateNode = qslow;
         }
         return intermediateNode;
     }
